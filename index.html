@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSolutions Inc. Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #6dd5fa, #2980b9);
+            color: white;
+            padding: 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header img {
+            height: 100px;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        /* Buttons Styling */
+        button {
+            background: linear-gradient(135deg, #FF6F61, #FFB88C);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #FFB88C, #FF6F61);
+            transform: translateY(-2px);
+        }
+
+        /* Form Inputs */
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus {
+            border-color: #3498db;
+        }
+
+        /* Card Layout for sections */
+        .dashboard-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .dashboard-content div {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #ffe259, #ffa751);
+        }
+        .dashboard-content div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Display */
+        .hidden { display: none; transition: all 0.3s ease; }
+        .visible { display: block; transition: all 0.3s ease; }
+
+        /* Feedback Messages */
+        .feedback {
+            color: green;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+        .error {
+            border-color: red;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Techno.png" alt="TechSolutions Inc. Logo">
+        <h1>TechSolutions Inc.</h1>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Login Section -->
+        <div class="login visible fade-in">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p id="login-error" class="feedback" style="color: red;">Invalid credentials. Please try again.</p>
+            </form>
+        </div>
+        
+        <!-- Admin Dashboard -->
+        <div class="admin-dashboard hidden fade-in">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-content">
+                <div>
+                    <h3>Employee Management</h3>
+                    <i class="fas fa-users fa-3x" style="color: #FF6F61;"></i>
+                    <button id="manage-employees">Manage Employees</button>
+                </div>
+                <div>
+                    <h3>System Settings</h3>
+                    <i class="fas fa-cogs fa-3x" style="color: #9b59b6;"></i>
+                    <button id="system-settings">System Settings</button>
+                </div>
+            </div>
+
+            <!-- Employee Management Section -->
+            <div class="employee-content hidden fade-in" id="employee-management">
+                <h3>Employee Management</h3>
+                <input type="text" id="new-employee" placeholder="Enter new employee name">
+                <button id="add-employee">Add Employee</button>
+                <ul id="employee-list">
+                    <!-- Employee items will appear here -->
+                </ul>
+                <p id="employee-feedback" class="feedback">Employee added successfully!</p>
+            </div>
+
+            <!-- System Settings Section -->
+            <div class="settings-content hidden fade-in" id="system-settings-content">
+                <h3>System Settings</h3>
+                <input type="text" id="settings-field" placeholder="Enter new system setting">
+                <button id="save-settings">Save Settings</button>
+                <ul id="settings-list">
+                    <!-- System settings will appear here -->
+                </ul>
+                <p id="settings-feedback" class="feedback">Setting saved successfully!</p>
+            </div>
+        </div>
+
+        <!-- Employee Dashboard -->
+        <div class="employee-dashboard hidden fade-in">
+            <h2>Employee Dashboard</h2>
+            <div class="dashboard-content">
+                <div>
+                    <h3>My Tasks</h3>
+                    <i class="fas fa-tasks fa-3x" style="color: #3498db;"></i>
+                    <button id="view-tasks">View My Tasks</button>
+                </div>
+                <div>
+                    <h3>Leave Requests</h3>
+                    <i class="fas fa-calendar-alt fa-3x" style="color: #e74c3c;"></i>
+                    <button id="leave-requests">Request Leave</button>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="tasks-content hidden fade-in" id="tasks-section">
+                <h3>My Tasks</h3>
+                <input type="text" id="task" placeholder="Enter new task">
+                <button id="add-task">Add Task</button>
+                <ul id="tasks-list">
+                    <!-- Task items will appear here -->
+                </ul>
+                <p id="task-feedback" class="feedback">Task added successfully!</p>
+            </div>
+
+            <!-- Leave Requests Section -->
+            <div class="leave-content hidden fade-in" id="leave-section">
+                <h3>Leave Requests</h3>
+                <input type="text" id="leave-reason" placeholder="Reason for leave">
+                <input type="date" id="leave-date">
+                <button id="submit-leave">Submit Leave Request</button>
+                <ul id="leave-list">
+                    <!-- Leave requests will appear here -->
+                </ul>
+                <p id="leave-feedback" class="feedback">Leave request submitted successfully!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const adminCredentials = { username: 'admin', password: 'admin123' };
+        const employeeCredentials = { username: 'employee', password: 'employee123' };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('login');
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                showSection('admin-dashboard');
+            } else if (username === employeeCredentials.username && password === employeeCredentials.password) {
+                showSection('employee-dashboard');
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        });
+
+        // Show section based on login
+        function showSection(section) {
+            document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+            document.querySelector(`.${section}`).classList.remove('hidden');
+        }
+
+        // Admin Dashboard Features
+        document.getElementById('manage-employees').addEventListener('click', () => toggleSection('employee-management'));
+        document.getElementById('system-settings').addEventListener('click', () => toggleSection('system-settings-content'));
+
+        // Employee Management
+        document.getElementById('add-employee').addEventListener('click', () => {
+            const employeeName = document.getElementById('new-employee').value;
+            if (employeeName) {
+                const employeeList = document.getElementById('employee-list');
+                const li = document.createElement('li');
+                li.textContent = employeeName;
+                employeeList.appendChild(li);
+                document.getElementById('employee-feedback').style.display = 'block';
+                setTimeout(() => document.getElementById('employee-feedback').style.display = 'none', 2000);
+            }
+        });
+
+        // System Settings
+        document.getElementById('save-settings').addEventListener('click', () => {
+            const setting = document.getElementById('settings-field').value;
+            if (setting) {
+                const settingsList = document.getElementById('settings-list');
+                const li = document.createElement('li');
+                li.textContent = setting;
+                settingsList.appendChild(li);
+                document.getElementById('settings-feedback').style.display = 'block';
+                setTimeout(() => document.getElementById('settings-feedback').style.display = 'none', 2000);
+            }
+        });
+
+        // Employee Dashboard Features
+        document.getElementById('view-tasks').addEventListener('click', () => toggleSection('tasks-section'));
+        document.getElementById('leave-requests').addEventListener('click', () => toggleSection('leave-section'));
+
+        // Tasks Management
+        document.getElementById('add-task').addEventListener('click', () => {
+            const task = document.getElementById('task').value;
+            if (task) {
+                const taskList = document.getElementById('tasks-list');
+                const li = document.createElement('li');
+                li.textContent = task;
+                taskList.appendChild(li);
+                document.getElementById('task-feedback').style.display = 'block';
+                setTimeout(() => document.getElementById('task-feedback').style.display = 'none', 2000);
+            }
+        });
+
+        // Leave Requests
+        document.getElementById('submit-leave').addEventListener('click', () => {
+            const reason = document.getElementById('leave-reason').value;
+            const date = document.getElementById('leave-date').value;
+            if (reason && date) {
+                const leaveList = document.getElementById('leave-list');
+                const li = document.createElement('li');
+                li.textContent = `Leave on ${date}: ${reason}`;
+                leaveList.appendChild(li);
+                document.getElementById('leave-feedback').style.display = 'block';
+                setTimeout(() => document.getElementById('leave-feedback').style.display = 'none', 2000);
+            }
+        });
+
+        // Toggle Sections
+        function toggleSection(sectionId) {
+            document.querySelectorAll('.fade-in').forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

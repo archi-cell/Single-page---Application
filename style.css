@@ -1,0 +1,97 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #f0f2f5, #ffffff); 
+    background-image: url("subtle.jpg"); 
+    background-repeat: repeat; 
+    background-size: cover; 
+    background-attachment: fixed; 
+   }
+    .container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        margin-bottom: 20px;
+    }
+    header img {
+        height: 180px;
+        margin-right: 20px;
+    }
+    h1 {
+        margin: 0;
+        color: #333;
+    }
+    .login, .admin-dashboard, .employee-dashboard {
+        display: none;
+    }
+    .login form, .dashboard-content, .tasks-content, .leave-content, .employee-content, .settings-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .login input, .dashboard-content input, .tasks-content input, .leave-content input, .employee-content input, .settings-content input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .login button, .dashboard-content button, .tasks-content button, .leave-content button, .employee-content button, .settings-content button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .login button:hover, .dashboard-content button:hover, .tasks-content button:hover, .leave-content button:hover, .employee-content button:hover, .settings-content button:hover {
+        background-color: #0056b3;
+    }
+    .dashboard-content, .tasks-content, .leave-content, .employee-content, .settings-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .dashboard-content div, .tasks-content div, .leave-content div, .employee-content div, .settings-content div {
+        padding: 15px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .dashboard-content h3, .tasks-content h3, .leave-content h3, .employee-content h3, .settings-content h3 {
+        margin-top: 0;
+        color: #333;
+    }
+    .tasks-content ul, .leave-content ul, .employee-content ul, .settings-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .tasks-content li, .leave-content li, .employee-content li, .settings-content li {
+        background: #e9ecef;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+    .dashboard-content button, .tasks-content button, .leave-content button, .employee-content button, .settings-content button {
+        width: 100%;
+    }
+    .admin-dashboard .employee-content, .admin-dashboard .settings-content, .employee-dashboard .tasks-content, .employee-dashboard .leave-content {
+        display: none;
+    }
